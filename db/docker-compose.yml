@@ -1,0 +1,26 @@
+services:
+  java_firstapp_db:
+    image: postgres:16
+    container_name: java_firstapp_db
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=storedb
+    ports:
+      - "5435:5432"
+
+  java_firstapp_pgadmin:
+    image: dpage/pgadmin4
+    container_name: java_firstapp_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8085:80"
+    depends_on:
+      - java_firstapp_db
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  pgadmin_data:
